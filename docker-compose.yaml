@@ -6,11 +6,24 @@ services:
     container_name: casper_poc
     volumes:
       - ./data:/app/data
+      # [NEW: Added a volume to easily access exported text files for manual LLM copy-pasting]
+      - ./prompts_export:/app/prompts_export
     environment:
       - GITLAB_URL=${GITLAB_URL:-https://gitlab.example.com}
       - GITLAB_TOKEN=${GITLAB_TOKEN}
+      
+      # [CHANGED: Added a toggle for manual LLM interaction]
+      - MANUAL_LLM_MODE=${MANUAL_LLM_MODE:-True}
+      - PROMPT_EXPORT_DIR=/app/prompts_export
+      
+      # Now optional if MANUAL_LLM_MODE is True
       - INTERNAL_LLM_API_BASE=${INTERNAL_LLM_API_BASE}
       - INTERNAL_LLM_API_KEY=${INTERNAL_LLM_API_KEY}
       - LLM_MODEL_NAME=${LLM_MODEL_NAME:-gpt-4o}
+      
       - DATABASE_PATH=/app/data/casper_memory.sqlite
+    
+    # [CHANGED: Set to interactive so we can paste LLM responses into the Docker terminal]
+    stdin_open: true 
+    tty: true
     restart: unless-stopped
