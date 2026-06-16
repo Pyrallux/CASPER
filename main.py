@@ -6,7 +6,7 @@ import parser
 from llm_client import LLMClient
 
 def process_pipeline_failure(project_id: str, mr_iid: str, job_id: str, pipeline_id: str):
-    print(f"[*] CASPER Initializing analysis for Project {project_id}, Job {job_id}...")
+    print(f"[*] ECURGT Initializing analysis for Project {project_id}, Job {job_id}...")
     
     gl = GitLabClient()
     llm = LLMClient()
@@ -52,7 +52,7 @@ def process_pipeline_failure(project_id: str, mr_iid: str, job_id: str, pipeline
     )
     
     comment_body = (
-        f"### 🤖 CASPER Automated Root Cause Analysis\n\n"
+        f"### 🤖 ECURGT Automated Root Cause Analysis\n\n"
         f"**Change Type:** {mr_type_desc}\n"
         f"**Suggested Remediation:** {suggestion}\n\n"
         f"* **Confidence Score:** {confidence}%\n"
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     db.init_db()
     
     print("====================================================")
-    print("       CASPER POC EXECUTION ENGINE ACTIVATED        ")
+    print("       ECURGT POC EXECUTION ENGINE ACTIVATED        ")
     print("====================================================\n")
     
     SAMPLE_PROJECT_ID = "101"
